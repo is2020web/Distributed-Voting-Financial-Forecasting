@@ -8,24 +8,34 @@
 <meta name="description" content="Разпределена система за финансово прогнозиране, чрез гласуване на множество потребители.">
 
 <title>Distributed Voting Financial Forecasting</title>
+
+<!-- <link rel="stylesheet" href=""> -->
+<!-- <script src=""> -->
 </head>
 
 <body>
 <h1>Distributed Voting Financial Forecasting</h1>
-<hr>
+<hr/>
 
-Какво е вашето очакване за промяната на курса EUR/USD?
+<div>
+	<div>
+		<!-- Зона за показване на вече изчислени прогнози. --->
+	</div>
 
-<!-- Това са два бутона. -->
+	<div>
+		<form action="accept_vote.php">
+			Какво е вашето очакване за промяната на курса EUR/USD?
+			<br/>
+			<button id="vote_up">Увеличение</button> 
+			<button id="vote_down">Намаление</button>
+		</form>
+	</div>
+</div>
 
-<br>
-
-<button id="vote_up">Увеличение</button> 
-
-<button id="vote_down">Намаление</button> 
-
-<hr>
+<hr/>
+<footer>
 &copy; 2020 "Информационно обслужване" АД
+</footer>
 
 </body>
 </html>
