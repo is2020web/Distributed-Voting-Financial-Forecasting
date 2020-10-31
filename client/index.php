@@ -23,11 +23,20 @@
 	</div>
 
 	<div>
-		<form action="accept_vote.php">
-			Какво е вашето очакване за промяната на курса EUR/USD?
+		<form action="accept_vote.php" method="get">
+			<!-- TODO Идентификатора на потребителя да се взема от базата данни при поискване на страницата. -->
+			<input type="hidden" name="used_id" value="">
+
+			<!-- TODO Валутите трябва да се попълнят от базата данни. -->
+			Какво е вашето очакване за промяната на курса
+ 			<select id="currency_pair" name="currency_pair">
+				<option value="EURUSD">EUR/USD</option>
+			</select>
+			?
+
 			<br/>
-			<button id="vote_up">Увеличение</button> 
-			<button id="vote_down">Намаление</button>
+			<button id="vote_up" name="vote" value="up">Увеличение</button> 
+			<button id="vote_down" name="vote" value="down">Намаление</button>
 		</form>
 	</div>
 </div>
