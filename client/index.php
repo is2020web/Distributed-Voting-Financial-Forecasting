@@ -9,7 +9,7 @@
 
 <title>Distributed Voting Financial Forecasting</title>
 
-<!-- <link rel="stylesheet" href=""> -->
+<link rel="stylesheet" href="style.css">
 <!-- <script src=""> -->
 </head>
 
@@ -28,11 +28,13 @@
 			<input type="hidden" name="used_id" value="">
 
 			<!-- TODO Валутите трябва да се попълнят от базата данни. -->
+			<p>
 			Какво е вашето очакване за промяната на курса
  			<select id="currency_pair" name="currency_pair">
 				<option value="EURUSD">EUR/USD</option>
 			</select>
 			?
+			</p>
 
 			<br/>
 			<button id="vote_up" name="vote" value="up">Увеличение</button> 
