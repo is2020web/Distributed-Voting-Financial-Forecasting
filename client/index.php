@@ -22,7 +22,7 @@
 		<!-- Зона за показване на вече изчислени прогнози. --->
 	</div>
 
-	<div>
+	<div class="field">
 		<form action="accept_vote.php" method="get">
 			<!-- TODO Идентификатора на потребителя да се взема от базата данни при поискване на страницата. -->
 			<input type="hidden" name="used_id" value="">
