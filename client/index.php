@@ -11,9 +11,43 @@
 
 <link rel="stylesheet" href="style.css">
 <!-- <script src=""> -->
+
+<!-- TODO Split JavaScript code in sparate files. -->
+<script>
+function loadCurrencyPairs() {
+	var xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() {
+		if(this.readyState != 4) {
+			return;
+		}
+		
+		if(this.status != 200) {
+			return;
+		}
+		
+		for(value of this.responseText.split("\n")}{
+			var option = document.createElement('option')
+		
+			option.value = value;
+			//TODO Write visual form of currency pairs.
+			option.innerHTML = value;
+		
+			document.getElementById("currency_pair").appendChild(option);
+		}
+	}
+	
+	xhttp.open("GET", "currency_pair_list.php", true);
+	xhttp.send();
+}
+
+function loadForecast(currencyPair) {
+	//TODO Load already calculated forecast.
+}
+</script>
 </head>
 
-<body>
+<body onload="loadCurrencyPairs();">
 <h1>Distributed Voting Financial Forecasting</h1>
 <hr/>
 
@@ -31,7 +65,7 @@
 			<p>
 			Какво е вашето очакване за промяната на курса
  			<select id="currency_pair" name="currency_pair">
-				<option value="EURUSD">EUR/USD</option>
+				<!-- <option value="EURUSD">EUR/USD</option> -->
 			</select>
 			?
 			</p>
@@ -50,3 +84,4 @@
 
 </body>
 </html>
+
