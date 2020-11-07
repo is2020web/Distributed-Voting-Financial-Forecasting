@@ -26,6 +26,7 @@ function loadCurrencyPairs() {
 			return;
 		}
 
+		var select = document.getElementById("currency_pair");
 		for(value of JSON.parse( this.responseText )){
 			var option = document.createElement('option')
 		
@@ -33,7 +34,7 @@ function loadCurrencyPairs() {
 			//TODO Write visual form of currency pairs.
 			option.innerHTML = value;
 		
-			document.getElementById("currency_pair").appendChild(option);
+			select.appendChild(option);
 		}
 	}
 	
