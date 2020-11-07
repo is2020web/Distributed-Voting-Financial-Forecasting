@@ -25,8 +25,8 @@ function loadCurrencyPairs() {
 		if(this.status != 200) {
 			return;
 		}
-		
-		for(value of this.responseText.split("\n")}{
+
+		for(value of JSON.parse( this.responseText )){
 			var option = document.createElement('option')
 		
 			option.value = value;
