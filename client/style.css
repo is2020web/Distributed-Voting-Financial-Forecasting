@@ -1,4 +1,4 @@
- body {
+body {
   	background: url("bearish_bullish.jpg");
   	background-repeat: no-repeat;
   	background-size: 1920px 1259px;
@@ -41,7 +41,6 @@ select {
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-
 #vote_up {
 	background-color: #BBEBEC;
 	padding: 40px 40px;
@@ -83,7 +82,7 @@ hr {
 	display: none;
 }
 
-field {
+div.voting_form {
 	width: 685px;
 	height: 355px;
 	margin-left: auto;
