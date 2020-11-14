@@ -45,10 +45,19 @@ function loadCurrencyPairs() {
 function loadForecast(currencyPair) {
 	//TODO Load already calculated forecast.
 }
+
+function storeSelectedCurrencyPair() {
+	document.cookie = "ticker=" + document.getElementById("currency_pair").value;
+}
+
+function selectCurrencyPairs() {
+	//alert(document.cookie);
+	//TODO document.getElementById("currency_pair").value = ;
+}
 </script>
 </head>
 
-<body onload="loadCurrencyPairs();">
+<body onload="loadCurrencyPairs();selectCurrencyPairs();">
 <h1>Distributed Voting Financial Forecasting</h1>
 <hr/>
 
@@ -65,8 +74,7 @@ function loadForecast(currencyPair) {
 			<!-- TODO Валутите трябва да се попълнят от базата данни. -->
 			<p>
 			Какво е вашето очакване за промяната на курса
- 			<select id="currency_pair" name="currency_pair">
-				<!-- <option value="EURUSD">EUR/USD</option> -->
+ 			<select id="currency_pair" name="currency_pair" onchange="storeSelectedCurrencyPair()">
 			</select>
 			?
 			</p>

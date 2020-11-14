@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="bg">
-
-<head>
-<link rel="stylesheet" href="style.css">
-</head>
-
-<body>
 <?php
 
 if(isset($_GET['used_id']) == false) {
@@ -36,5 +28,3 @@ if(isset($_GET['vote']) == false) {
 }
 
 ?>
-</body>
-</html>
