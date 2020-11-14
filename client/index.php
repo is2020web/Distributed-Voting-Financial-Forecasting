@@ -16,7 +16,7 @@
 <script>
 function loadCurrencyPairs() {
 	var xhttp = new XMLHttpRequest();
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	//xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	xhttp.onreadystatechange = function() {
 		if(this.readyState != 4) {
@@ -31,9 +31,8 @@ function loadCurrencyPairs() {
 		for(value of JSON.parse( this.responseText )){
 			var option = document.createElement('option')
 		
-			option.value = value;
-			//TODO Write visual form of currency pairs.
-			option.innerHTML = value;
+			option.value = value["ticker"];
+			option.innerHTML = value["name"];
 		
 			select.appendChild(option);
 		}
