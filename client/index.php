@@ -59,9 +59,8 @@ function selectCurrencyPairs() {
 
 <body onload="loadCurrencyPairs();selectCurrencyPairs();">
 <h1>Distributed Voting Financial Forecasting</h1>
-<hr/>
 
-<div>
+<div class="container">
 	<div>
 		<!-- Зона за показване на вече изчислени прогнози. --->
 	</div>
@@ -80,13 +79,14 @@ function selectCurrencyPairs() {
 			</p>
 
 			<br/>
+			<div class="center">
 			<button id="vote_up" name="vote" value="up">Увеличение</button> 
 			<button id="vote_down" name="vote" value="down">Намаление</button>
+			</div>
 		</form>
 	</div>
 </div>
 
-<hr/>
 <footer>
 &copy; 2020 "Информационно обслужване" АД
 </footer>

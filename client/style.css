@@ -1,13 +1,15 @@
 body {
-  	background: url("bearish_bullish.jpg");
-  	background-repeat: no-repeat;
-  	background-size: 1920px 1259px;
-	margin-top: 43px;
+  	background: url("bearish_bullish.png");
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
 }
 
 h1 {
 	color: #00678C;
 	text-align: center;
+	font-size:3vw;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -16,7 +18,7 @@ p {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 20px;
 	text-align: center;
-	margin-top: 250px;
+	padding-top: 30px;
 }
 
 select {
@@ -25,10 +27,10 @@ select {
 	border-radius: 10px;
 	color: white;
 	background-color: #0095BF;
-
 }
 
 #vote_down {
+	display:inline-block;
 	background-color: #32B7BE;
 	padding: 40px 40px;
 	border: 2px solid white;
@@ -38,10 +40,12 @@ select {
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
+	margin-bottom: 20px;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 #vote_up {
+	display:inline-block;
 	background-color: #BBEBEC;
 	padding: 40px 40px;
 	border: 2px solid white;
@@ -51,8 +55,8 @@ select {
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
-	margin-left: 705px;
 	margin-right: 50px;
+	margin-bottom: 20px;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
@@ -78,17 +82,22 @@ footer {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-hr {
-	display: none;
-}
-
 div.voting_form {
 	width: 685px;
 	height: 355px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 250px;
+	margin-top: 100px;
 	border-radius: 25px;
 	background: #006988;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
+}
+
+div.center {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
