@@ -40,6 +40,9 @@ function selectCurrencyPairs() {
 	//TODO document.getElementById("currency_pair").value = ;
 }
 
+function selectUser() {
+}
+
 function sendVote(direction) {
 	if(direction!=="up" && direction!=="down") {
 		return;
@@ -57,9 +60,13 @@ function sendVote(direction) {
 		}
 
 		//TODO Да се визуализитра за коя валутна двойка е бил гласът и в коя посока.
-		window.alert("Voting was done ...");
+		window.alert("Voting was done ..."+this.responseText);
 	}
 	
-	xhttp.open("GET", "accept_vote.php?ticker="+document.getElementById("currency_pair").value+"&vote"+direction, true);
+	var ticker = document.getElementById("currency_pair").value;
+	var userHash = document.getElementById("user_hash").value;
+	var userEmail = document.getElementById("user_email").value;
+
+	xhttp.open("GET", "accept_vote.php?ticker="+ticker+"&vote="+direction+"&user_hash=userHash"+"&user_email=userEmail", true);
 	xhttp.send();
 }

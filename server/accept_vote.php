@@ -1,33 +1,52 @@
 <?php
+header("Content-Type: application/json; charset=UTF-8");
 
-error_log("" . $_GET['currency_pair']));
-error_log("" . $_GET['vote']));
+include "database.php";
+
+if(isset($_GET['used_email']) == false) {
+	error_log( "User email pramater is missing!" );
+	die();
+} else {
+	error_log( "Invlid input!" );
+	die();
+}
 
 if(isset($_GET['used_hash']) == false) {
-	echo( "Currency pair pramater is missing!" );
-} else if($_GET['used_hash'] == '') {
-	//TODO Идентификатора на потребителя трябва да се верифицира според данните в базата данни.
+	error_log( "User hash pramater is missing!" );
+	die();
 } else {
-	echo( "Invlid input!" );
+	error_log( "Invlid input!" );
+	die();
 }
 
 if(isset($_GET['ticker']) == false) {
-	echo( "Currency pair pramater is missing!" );
-} else if($_GET['ticker'] == 'EURUSD') {
-	//TODO Да се прави проверка за всички валутни двойки, поддържани в базата данни.
-	echo( "EUR/USD ..." );
+	error_log( "Ticker pramater is missing!" );
+	die();
 } else {
-	echo( "Invlid input!" );
+	error_log( "Invlid input!" );
+	die();
 }
 
 if(isset($_GET['vote']) == false) {
-	echo( "Vote pramater is missing!" );
-} else if($_GET['vote'] == 'up') {
-	echo( "Vote Up ..." );
-} else if($_GET['vote'] == 'down') {
-	echo( "Vote Down ..." );
-} else {
-	echo( "Invlid input!" );
+	error_log( "Vote pramater is missing!" );
+	die();
+}  else {
+	error_log( "Invlid input!" );
+	die();
 }
+
+$conn = new mysqli($server, $user, $pass, $db);
+if ($conn->connect_error) {
+	error_log( "Database problem!" );
+	die();
+}
+
+$result = $conn->query( "CALL store_vote();" );
+while($row = $result->fetch_assoc()) {
+}
+
+$conn->close();
+
+//TODO echo( Succes flag! );
 
 ?>
