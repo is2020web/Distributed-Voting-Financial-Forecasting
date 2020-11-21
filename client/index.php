@@ -10,51 +10,7 @@
 <title>Distributed Voting Financial Forecasting</title>
 
 <link rel="stylesheet" href="style.css">
-<!-- <script src=""> -->
-
-<!-- TODO Split JavaScript code in sparate files. -->
-<script>
-function loadCurrencyPairs() {
-	var xhttp = new XMLHttpRequest();
-	//xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-	xhttp.onreadystatechange = function() {
-		if(this.readyState != 4) {
-			return;
-		}
-		
-		if(this.status != 200) {
-			return;
-		}
-
-		var select = document.getElementById("currency_pair");
-		for(value of JSON.parse( this.responseText )){
-			var option = document.createElement('option')
-		
-			option.value = value["ticker"];
-			option.innerHTML = value["name"];
-		
-			select.appendChild(option);
-		}
-	}
-	
-	xhttp.open("GET", "currency_pair_list.php", true);
-	xhttp.send();
-}
-
-function loadForecast(currencyPair) {
-	//TODO Load already calculated forecast.
-}
-
-function storeSelectedCurrencyPair() {
-	document.cookie = "ticker=" + document.getElementById("currency_pair").value;
-}
-
-function selectCurrencyPairs() {
-	//alert(document.cookie);
-	//TODO document.getElementById("currency_pair").value = ;
-}
-</script>
+<script src="code.js"></script>
 </head>
 
 <body onload="loadCurrencyPairs();selectCurrencyPairs();">
@@ -66,24 +22,22 @@ function selectCurrencyPairs() {
 	</div>
 
 	<div class="voting_form">
-		<form action="accept_vote.php" method="get">
-			<!-- TODO Идентификатора на потребителя да се взема от базата данни при поискване на страницата. -->
-			<input type="hidden" name="used_id" value="">
+		<!-- TODO Идентификатора на потребителя да се взема от базата данни при поискване на страницата. -->
+		<input type="hidden" name="used_id" value="">
 
-			<!-- TODO Валутите трябва да се попълнят от базата данни. -->
-			<p>
-			Какво е вашето очакване за промяната на курса
- 			<select id="currency_pair" name="currency_pair" onchange="storeSelectedCurrencyPair()">
-			</select>
-			?
-			</p>
+		<!-- TODO Валутите трябва да се попълнят от базата данни. -->
+		<p>
+		Какво е вашето очакване за промяната на курса
+		<select id="currency_pair" name="currency_pair" onchange="storeSelectedCurrencyPair()">
+		</select>
+		?
+		</p>
 
-			<br/>
-			<div class="center">
-			<button id="vote_up" name="vote" value="up">Увеличение</button> 
-			<button id="vote_down" name="vote" value="down">Намаление</button>
-			</div>
-		</form>
+		<br/>
+		<div class="center">
+		<button id="vote_up" name="vote" value="up" onclick="sendVote("up");">Увеличение</button> 
+		<button id="vote_down" name="vote" value="down" onclick="sendVote("down");">Намаление</button>
+		</div>
 	</div>
 </div>
 

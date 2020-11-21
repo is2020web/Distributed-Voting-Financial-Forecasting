@@ -1,16 +1,19 @@
 <?php
 
-if(isset($_GET['used_id']) == false) {
+error_log("" . $_GET['currency_pair']));
+error_log("" . $_GET['vote']));
+
+if(isset($_GET['used_hash']) == false) {
 	echo( "Currency pair pramater is missing!" );
-} else if($_GET['used_id'] == '') {
+} else if($_GET['used_hash'] == '') {
 	//TODO Идентификатора на потребителя трябва да се верифицира според данните в базата данни.
 } else {
 	echo( "Invlid input!" );
 }
 
-if(isset($_GET['currency_pair']) == false) {
+if(isset($_GET['ticker']) == false) {
 	echo( "Currency pair pramater is missing!" );
-} else if($_GET['currency_pair'] == 'EURUSD') {
+} else if($_GET['ticker'] == 'EURUSD') {
 	//TODO Да се прави проверка за всички валутни двойки, поддържани в базата данни.
 	echo( "EUR/USD ..." );
 } else {
