@@ -14,7 +14,7 @@
 </head>
 
 <body onload="loadCurrencyPairs();selectCurrencyPairs();selectUser();">
-<h1>Distributed Voting Financial Forecasting</h1>
+<h1>Distributed Voting Financial <br/> Forecasting</h1>
 
 <div class="container">
 	<div>
@@ -28,16 +28,17 @@
 
 		<!-- TODO Валутите трябва да се попълнят от базата данни. -->
 		<p>
-		Какво е вашето очакване за промяната на курса
+		Какво е Вашето очакване за промяната на курса
 		<select id="currency_pair" name="currency_pair" onchange="storeSelectedCurrencyPair()">
 		</select>
 		?
 		</p>
-
 		<br/>
-		<div class="center">
 		<button id="vote_up" name="vote" value="up" onclick="sendVote('up');">Увеличение</button> 
 		<button id="vote_down" name="vote" value="down" onclick="sendVote('down');">Намаление</button>
+		<p> Валутни курсове към <span class="date"></span></p>
+		<div class=scroll-left>
+		<p id="exchange" class="exchangerate"></p>
 		</div>
 	</div>
 </div>
