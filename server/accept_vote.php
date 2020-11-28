@@ -3,36 +3,30 @@ header("Content-Type: application/json; charset=UTF-8");
 
 include "database.php";
 
-if(isset($_GET['used_email']) == false) {
+//TODO Prevent SQL injection!
+
+if(isset($_GET['user_email']) == false) {
 	error_log( "User email pramater is missing!" );
 	die();
 } else {
-	error_log( "Invlid input!" );
-	die();
 }
 
-if(isset($_GET['used_hash']) == false) {
+if(isset($_GET['user_hash']) == false) {
 	error_log( "User hash pramater is missing!" );
 	die();
 } else {
-	error_log( "Invlid input!" );
-	die();
 }
 
 if(isset($_GET['ticker']) == false) {
 	error_log( "Ticker pramater is missing!" );
 	die();
 } else {
-	error_log( "Invlid input!" );
-	die();
 }
 
 if(isset($_GET['vote']) == false) {
 	error_log( "Vote pramater is missing!" );
 	die();
 }  else {
-	error_log( "Invlid input!" );
-	die();
 }
 
 $conn = new mysqli($server, $user, $pass, $db);
@@ -41,9 +35,9 @@ if ($conn->connect_error) {
 	die();
 }
 
-$result = $conn->query( "CALL store_vote();" );
-while($row = $result->fetch_assoc()) {
-}
+//TODO Use prepared statments!
+//TODO Do a better report for success of failor!
+$result = $conn->query( "CALL store_vote('".$_GET['user_email']."','".$_GET['user_hash']."','".$_GET['ticker']."','".$_GET['vote']."');" );
 
 $conn->close();
 

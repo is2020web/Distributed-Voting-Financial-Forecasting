@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2020 at 03:53 PM
+-- Generation Time: Nov 28, 2020 at 12:21 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -28,8 +28,8 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `load_currencies` ()  NO SQL
 SELECT ticker, name AS pair FROM currency_pair ORDER BY ticker$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `store_vote()` (IN `user_email` VARCHAR(50), IN `user_hash` VARCHAR(100), IN `ticker` VARCHAR(10), IN `vote` VARCHAR(10))  NO SQL
-select * from vote$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `store_vote` (IN `user_email` VARCHAR(50), IN `user_hash` VARCHAR(100), IN `ticker` VARCHAR(10), IN `vote` VARCHAR(10))  NO SQL
+INSERT INTO `vote` (`direction`, `currency_pair_id`, `user_id`) VALUES (`vote`, (SELECT id FROM currency_pair WHERE currency_pair.ticker=`ticker`) , '1')$$
 
 DELIMITER ;
 
@@ -94,9 +94,11 @@ CREATE TABLE `vote` (
 --
 
 INSERT INTO `vote` (`id`, `time`, `direction`, `currency_pair_id`, `user_id`) VALUES
-(1, '2020-11-14 13:43:44', 'up', 1, 1),
-(2, '2020-11-14 13:44:12', 'down', 3, 1),
-(3, '2020-11-14 13:54:51', 'up', 4, 1);
+(41, '2020-11-28 11:18:49', 'up', 1, 1),
+(42, '2020-11-28 11:19:14', 'down', 1, 1),
+(43, '2020-11-28 11:19:30', 'down', 3, 1),
+(44, '2020-11-28 11:20:21', 'up', 3, 1),
+(45, '2020-11-28 11:20:38', 'down', 4, 1);
 
 --
 -- Indexes for dumped tables
@@ -143,7 +145,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `vote`
 --
 ALTER TABLE `vote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- Constraints for dumped tables

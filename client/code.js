@@ -59,7 +59,7 @@ function sendVote(direction) {
 			return;
 		}
 
-		//TODO Да се визуализитра за коя валутна двойка е бил гласът и в коя посока.
+		//TODO Better voting result reporting to be implemented!.
 		window.alert("Voting was done ..."+this.responseText);
 	}
 	
@@ -71,6 +71,7 @@ function sendVote(direction) {
 	xhttp.send();
 }
 
+//TODO Load all supported by us tickers.
 const dataURL = "https://api.exchangerate.host/latest?base=USD";
 	fetch(dataURL)
 	  .then(res => res.json())
