@@ -11,6 +11,7 @@ if(isset($_GET['user']) == false) {
 } else {
 }
 
+//TODO Plain text passwords are very bad approach!
 if(isset($_GET['pass']) == false) {
 	error_log( "User password pramater is missing!" );
 	die();
@@ -30,7 +31,7 @@ if ($conn->connect_error) {
 }
 
 //TODO Use prepared statments!
-$result = $conn->query( "" );
+$result = $conn->query( "CALL user_check('".$_GET['email']."','".$_GET['pass']."','".$_GET['hash']."');" );
 
 $conn->close();
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 12:21 PM
+-- Generation Time: Nov 28, 2020 at 03:40 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -31,6 +31,28 @@ SELECT ticker, name AS pair FROM currency_pair ORDER BY ticker$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `store_vote` (IN `user_email` VARCHAR(50), IN `user_hash` VARCHAR(100), IN `ticker` VARCHAR(10), IN `vote` VARCHAR(10))  NO SQL
 INSERT INTO `vote` (`direction`, `currency_pair_id`, `user_id`) VALUES (`vote`, (SELECT id FROM currency_pair WHERE currency_pair.ticker=`ticker`) , '1')$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `user_check` (IN `email` VARCHAR(50), IN `pass` VARCHAR(50), INOUT `hash` VARCHAR(100))  NO SQL
+BEGIN
+
+DECLARE registered INT DEFAULT 0;
+
+SELECT COUNT(*) INTO @found FROM user WHERE user.email=email AND user.pass=pass AND user.hash=hash;
+
+SELECT user.hash INTO @oldhash FROM user WHERE user.email=email AND user.pass=pass;
+
+SELECT COUNT(*) INTO @logged FROM user WHERE user.email=email AND user.hash=hash;
+
+SELECT COUNT(*) INTO registered FROM user WHERE user.email=email AND user.pass<>pass AND user.hash<>hash;
+
+-- TODO Stop handling if there is an attacker.
+-- IF 1 = registered THEN
+-- 	RETURN;
+-- END IF;
+    
+SELECT COUNT(*) INTO @newcomer FROM user WHERE user.email=email;
+
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -53,7 +75,9 @@ INSERT INTO `currency_pair` (`id`, `ticker`, `name`) VALUES
 (1, 'EURUSD', 'EUR/USD'),
 (3, 'GBPUSD', 'GBP/USD'),
 (4, 'USDJPY', 'USD/JPY'),
-(5, 'CHFUSD', 'CHF/USD');
+(5, 'CHFUSD', 'CHF/USD'),
+(6, 'NZDUSD', 'NZD/USD'),
+(7, 'USDCND', 'USD/CND');
 
 -- --------------------------------------------------------
 
@@ -73,7 +97,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `pass`, `hash`) VALUES
-(1, 'todor.balabanov@gmail.com', '', '');
+(1, 'todor.balabanov@gmail.com', 'asdf', 'asdf');
 
 -- --------------------------------------------------------
 
@@ -98,7 +122,13 @@ INSERT INTO `vote` (`id`, `time`, `direction`, `currency_pair_id`, `user_id`) VA
 (42, '2020-11-28 11:19:14', 'down', 1, 1),
 (43, '2020-11-28 11:19:30', 'down', 3, 1),
 (44, '2020-11-28 11:20:21', 'up', 3, 1),
-(45, '2020-11-28 11:20:38', 'down', 4, 1);
+(45, '2020-11-28 11:20:38', 'down', 4, 1),
+(46, '2020-11-28 12:13:42', 'down', 6, 1),
+(47, '2020-11-28 12:25:38', 'down', 5, 1),
+(48, '2020-11-28 12:27:12', 'down', 1, 1),
+(49, '2020-11-28 12:27:45', 'down', 5, 1),
+(50, '2020-11-28 12:30:35', 'up', 5, 1),
+(51, '2020-11-28 12:30:39', 'down', 3, 1);
 
 --
 -- Indexes for dumped tables
@@ -133,7 +163,7 @@ ALTER TABLE `vote`
 -- AUTO_INCREMENT for table `currency_pair`
 --
 ALTER TABLE `currency_pair`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -145,7 +175,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `vote`
 --
 ALTER TABLE `vote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- Constraints for dumped tables

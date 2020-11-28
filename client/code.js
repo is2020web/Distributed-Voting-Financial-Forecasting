@@ -82,14 +82,16 @@ function userRemoteCheck(user, pass, hash) {
 		//TODO selectUser();
 	}
 	
-	xhttp.open("GET", "user_ckeck.php?user="+user+"&pass="+pass+"&hash="+hash+"", true);
+	xhttp.open("GET", "user_check.php?user="+user+"&pass="+pass+"&hash="+hash+"", true);
 	xhttp.send();
 }
 
 function selectUser() {
 //	if(getCookie("user_email") !== "" && getCookie("user_hash") !== "") {
-//		document.getElementById("user_email").value = getCookie("user_email");
-//		document.getElementById("user_hash").value = getCookie("user_hash");
+//		var user = document.getElementById("user_email").value = getCookie("user_email");
+//		var hash = document.getElementById("user_hash").value = getCookie("user_hash");
+//		var pass = "";
+//		userRemoteCheck(user, pass, hash);
 //	} else {
 		var user = prompt("Имейл", "");
 		var pass = prompt("Парола", "");
