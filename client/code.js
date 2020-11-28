@@ -1,3 +1,29 @@
+function getCookie(cname) {
+	var name = cname + "=";
+
+	var ca = document.cookie.split(';');
+	for(var i = 0; i <ca.length; i++) {
+		var c = ca[i];
+
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+
+	return "";
+}
+
+function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires="+ d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=Strict";
+}
+
 /**
  */
 function loadCurrencyPairs() {
@@ -32,15 +58,49 @@ function loadForecast(currencyPair) {
 }
 
 function storeSelectedCurrencyPair() {
-	document.cookie = "ticker=" + document.getElementById("currency_pair").value;
+	setCookie("ticker", document.getElementById("currency_pair").value, 100);
 }
 
 function selectCurrencyPairs() {
-	//alert(document.cookie);
-	//TODO document.getElementById("currency_pair").value = ;
+	//TODO document.getElementById("currency_pair").value = getCookie("ticker");
+}
+
+function userRemoteCheck(user, pass, hash) {
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if(this.readyState != 4) {
+			return;
+		}
+		
+		if(this.status != 200) {
+			return;
+		}
+
+		//setCookie("user_email", "todor.balabanov@gmail.com", 100);
+		//setCookie("user_hash", ""+(1000 + Math.floor(Math.random() * 9000)), 100);
+		//TODO selectUser();
+	}
+	
+	xhttp.open("GET", "user_ckeck.php?user="+user+"&pass="+pass+"&hash="+hash+"", true);
+	xhttp.send();
 }
 
 function selectUser() {
+//	if(getCookie("user_email") !== "" && getCookie("user_hash") !== "") {
+//		document.getElementById("user_email").value = getCookie("user_email");
+//		document.getElementById("user_hash").value = getCookie("user_hash");
+//	} else {
+		var user = prompt("Имейл", "");
+		var pass = prompt("Парола", "");
+		var hash = getCookie("user_hash");
+
+		if(hash === "") {
+			hash = "" + (1000 + Math.floor(Math.random() * 9000));
+		}
+
+		userRemoteCheck(user, pass, hash);
+//	}
 }
 
 function sendVote(direction) {

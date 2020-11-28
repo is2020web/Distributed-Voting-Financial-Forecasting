@@ -29,13 +29,13 @@
 		<!-- TODO Валутите трябва да се попълнят от базата данни. -->
 		<p>
 		Какво е Вашето очакване за промяната на курса
-		<select id="currency_pair" name="currency_pair" onchange="storeSelectedCurrencyPair()">
+		<select id="currency_pair" name="currency_pair">
 		</select>
 		?
 		</p>
 		<br/>
-		<button id="vote_up" name="vote" value="up" onclick="sendVote('up');">Увеличение</button> 
-		<button id="vote_down" name="vote" value="down" onclick="sendVote('down');">Намаление</button>
+		<button id="vote_up" name="vote" value="up" onclick="sendVote('up');storeSelectedCurrencyPair();">Увеличение</button> 
+		<button id="vote_down" name="vote" value="down" onclick="sendVote('down');storeSelectedCurrencyPair();">Намаление</button>
 		<p> Валутни курсове към <span class="date"></span></p>
 		<div class=scroll-left>
 		<p id="exchange" class="exchangerate"></p>
