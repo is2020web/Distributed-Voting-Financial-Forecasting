@@ -18,7 +18,7 @@ function loadCurrencyPairs() {
 		
 			option.value = value["ticker"];
 			option.innerHTML = value["pair"];
-		
+			
 			select.appendChild(option);
 		}
 	}
@@ -70,3 +70,14 @@ function sendVote(direction) {
 	xhttp.open("GET", "accept_vote.php?ticker="+ticker+"&vote="+direction+"&user_hash=userHash"+"&user_email=userEmail", true);
 	xhttp.send();
 }
+
+const dataURL = "https://api.exchangerate.host/latest?base=USD";
+	fetch(dataURL)
+	  .then(res => res.json())
+	  .then(data => {
+	document.querySelector(".date").textContent = data.date.split("-").reverse().join(".");
+	//TODO Информация на кои валутни двойки да се показва курсът да се прочита от базата.
+	document.querySelector(".exchangerate").textContent = 'CHF/USD : '+(1/data.rates["CHF"]).toFixed(4)+' | EUR/USD : '+(1/data.rates["EUR"]).toFixed(4)+' | GBP/USD : '+(1/data.rates["GBP"]).toFixed(4)+' | USD/JPY : '+(data.rates["JPY"]).toFixed(4);
+	})
+
+
