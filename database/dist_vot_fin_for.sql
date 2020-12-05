@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2020 at 10:56 AM
+-- Generation Time: Dec 05, 2020 at 12:22 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -120,14 +120,6 @@ CREATE TABLE `user` (
   `hash` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `email`, `pass`, `hash`) VALUES
-(1, 'todor.balabanov@gmail.com', 'asdf', 'asdf'),
-(2, 'is2020web@abv.bg', 'qwer', 'qwer');
-
 -- --------------------------------------------------------
 
 --
@@ -141,25 +133,6 @@ CREATE TABLE `vote` (
   `currency_pair_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `vote`
---
-
-INSERT INTO `vote` (`id`, `time`, `direction`, `currency_pair_id`, `user_id`) VALUES
-(41, '2020-11-28 11:18:49', 'up', 1, 1),
-(42, '2020-11-28 11:19:14', 'down', 1, 1),
-(43, '2020-11-28 11:19:30', 'down', 3, 1),
-(44, '2020-11-28 11:20:21', 'up', 3, 1),
-(45, '2020-11-28 11:20:38', 'down', 4, 1),
-(46, '2020-11-28 12:13:42', 'down', 6, 1),
-(47, '2020-11-28 12:25:38', 'down', 5, 1),
-(48, '2020-11-28 12:27:12', 'down', 1, 1),
-(49, '2020-11-28 12:27:45', 'down', 5, 1),
-(50, '2020-11-28 12:30:35', 'up', 5, 1),
-(51, '2020-11-28 12:30:39', 'down', 3, 1),
-(52, '2020-12-05 09:40:25', 'up', 8, 1),
-(53, '2020-12-05 09:40:27', 'down', 8, 1);
 
 --
 -- Indexes for dumped tables
