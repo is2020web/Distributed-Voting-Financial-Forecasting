@@ -1,3 +1,4 @@
+var exchange_array = [];
 function getCookie(cname) {
 	var name = cname + "=";
 
@@ -44,9 +45,11 @@ function loadCurrencyPairs() {
 		
 			option.value = value["ticker"];
 			option.innerHTML = value["pair"];
+			exchange_array.push(value["pair"]);
 			
 			select.appendChild(option);
 		}
+	exchangerate();
 	}
 	
 	xhttp.open("GET", "currency_pair_list.php", true);
@@ -120,9 +123,19 @@ function sendVote(direction) {
 		if(this.status != 200) {
 			return;
 		}
-
 		//TODO Better voting result reporting to be implemented!.
-		window.alert("Voting was done ..."+this.responseText);
+		//window.alert("Voting was done ..."+this.responseText);
+		var flag = this.responseText;
+		if (flag == 1) {
+			document.getElementById("flag").src = "check.png";
+			$(".flag").fadeIn(100);
+			$(".flag").fadeOut(900);
+		} 
+		else{
+			document.getElementById("flag").src = "cross.png";
+			$(".flag").fadeIn(100);
+			$(".flag").fadeOut(900);
+		}
 	}
 	
 	var ticker = document.getElementById("currency_pair").value;
@@ -133,14 +146,25 @@ function sendVote(direction) {
 	xhttp.send();
 }
 
-//TODO Load all supported by us tickers.
-const dataURL = "https://api.exchangerate.host/latest?base=USD";
-	fetch(dataURL)
-	  .then(res => res.json())
-	  .then(data => {
-	document.querySelector(".date").textContent = data.date.split("-").reverse().join(".");
-	//TODO Информация на кои валутни двойки да се показва курсът да се прочита от базата.
-	document.querySelector(".exchangerate").textContent = 'CHF/USD : '+(1/data.rates["CHF"]).toFixed(4)+' | EUR/USD : '+(1/data.rates["EUR"]).toFixed(4)+' | GBP/USD : '+(1/data.rates["GBP"]).toFixed(4)+' | USD/JPY : '+(data.rates["JPY"]).toFixed(4);
+function exchangerate() {
+	var tsplit = [];
+	var promises = [];
+		for (var i = 0; i < exchange_array.length; i++) {
+		tsplit = exchange_array[i].split("/");
+		var url = 'https://api.exchangerate.host/latest?&source=ecb&base=' + tsplit[0] + '&symbols=' + tsplit[1];
+		promises.push(fetch(url));
+		}
+	Promise.all(promises)
+	.then( res =>{
+		res.forEach(res=>{
+		process(res.json());
+		})
 	})
-
+	var process = (prom) =>{
+		prom.then(data=>{
+		document.querySelector(".date").textContent = data.date.split("-").reverse().join(".");
+		document.querySelector(".exchangerate").textContent += (data.base) + '/' + JSON.stringify(data.rates).slice(2,5) + ' : ' + JSON.stringify(data.rates).slice(7,13) + ' | ';
+		})
+	}
+}
 

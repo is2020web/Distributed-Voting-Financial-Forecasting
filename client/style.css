@@ -35,7 +35,7 @@ select {
 #vote_down {
 	display:inline-block;
 	background-color: #32B7BE;
-	padding: 40px 40px;
+	padding: 40px;
 	border: 2px solid white;
 	border-radius: 10px;
 	color: white;
@@ -43,9 +43,9 @@ select {
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
-	margin-right: 50px;
+	margin-right: 0px;
 	margin-left: 50px;
-	margin-bottom: 30px;
+	margin-bottom: 13px;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	float: left;
 }
@@ -53,7 +53,7 @@ select {
 #vote_up {
 	display:inline-block;
 	background-color: #BBEBEC;
-	padding: 40px 40px;
+	padding: 40px;
 	border: 2px solid white;
 	border-radius: 10px;
 	color: #29979C;
@@ -62,8 +62,8 @@ select {
 	font-weight: bold;
 	text-transform: uppercase;
 	margin-right: 50px;
-	margin-left: 50px;
-	margin-bottom: 30px;
+	margin-left: 0px;
+	margin-bottom: 13px;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	float: right;
 }
@@ -109,7 +109,8 @@ div.voting_form {
 }
 .scroll-left p {
 	position: absolute;
-	width: 100%;
+	white-space: nowrap;
+	width: 130%;
 	height: 100%;
 	margin: 0;
 	color: white;
@@ -123,7 +124,7 @@ div.voting_form {
 	transform:translateX(100%);
 	-moz-animation: scroll-left 10s linear infinite;
 	-webkit-animation: scroll-left 10s linear infinite;
-	animation: scroll-left 20s linear infinite;
+	animation: scroll-left 25s linear infinite;
 }
 @-moz-keyframes scroll-left {
 	0% { -moz-transform: translateX(100%); }
@@ -144,4 +145,15 @@ div.voting_form {
 		-webkit-transform: translateX(-100%);
 		transform: translateX(-100%); 
 	}
+}
+.flag {
+	display:inline-block;
+	margin-top: 12px;
+	margin-left: 20px;
+	width: 12%;
+}
+div.exchange_date{
+	display:inline-block;
+	white-space: nowrap;
+	width: 100%;
 }

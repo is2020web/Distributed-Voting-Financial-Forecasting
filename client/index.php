@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" href="style.css">
 <script src="code.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body onload="loadCurrencyPairs();selectCurrencyPairs();selectUser();">
@@ -35,10 +36,13 @@
 		</p>
 		<br/>
 		<button id="vote_up" name="vote" value="up" onclick="sendVote('up');storeSelectedCurrencyPair();">Увеличение</button> 
+		<img id="flag" class="flag" src=""> 
 		<button id="vote_down" name="vote" value="down" onclick="sendVote('down');storeSelectedCurrencyPair();">Намаление</button>
+		<div class=exchange_date>
 		<p> Валутни курсове към <span class="date"></span></p>
+		</div>
 		<div class=scroll-left>
-		<p id="exchange" class="exchangerate"></p>
+		<p class="exchangerate"></p>
 		</div>
 	</div>
 </div>

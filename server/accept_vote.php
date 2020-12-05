@@ -38,7 +38,11 @@ if ($conn->connect_error) {
 //TODO Use prepared statments!
 //TODO Do a better report for success of failor!
 $result = $conn->query( "CALL store_vote('".$_GET['user_email']."','".$_GET['user_hash']."','".$_GET['ticker']."','".$_GET['vote']."');" );
-
+if ($result === TRUE) {
+	echo "1";
+	} else {
+	echo "0";
+	}
 $conn->close();
 
 //TODO echo( Succes flag! );
