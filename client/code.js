@@ -70,6 +70,7 @@ function selectCurrencyPairs() {
 
 function userRemoteCheck(user, pass, hash) {
 	var xhttp = new XMLHttpRequest();
+	document.getElementById("user_email").value = user;
 
 	xhttp.onreadystatechange = function() {
 		if(this.readyState != 4) {
@@ -80,9 +81,15 @@ function userRemoteCheck(user, pass, hash) {
 			return;
 		}
 
-		//setCookie("user_email", "todor.balabanov@gmail.com", 100);
-		//setCookie("user_hash", ""+(1000 + Math.floor(Math.random() * 9000)), 100);
-		//TODO selectUser();
+		var hash = JSON.parse( this.responseText );
+		if(hash != "0") {
+			setCookie("user_email", document.getElementById("user_email").value, 100);
+			setCookie("user_hash", hash, 100);
+		} else {
+			document.cookie = "";
+			document.getElementById("user_email").value = "";
+			document.getElementById("user_hash").value = "";
+		}
 	}
 	
 	xhttp.open("GET", "user_check.php?user="+user+"&pass="+pass+"&hash="+hash+"", true);
@@ -90,12 +97,13 @@ function userRemoteCheck(user, pass, hash) {
 }
 
 function selectUser() {
-//	if(getCookie("user_email") !== "" && getCookie("user_hash") !== "") {
-//		var user = document.getElementById("user_email").value = getCookie("user_email");
-//		var hash = document.getElementById("user_hash").value = getCookie("user_hash");
-//		var pass = "";
-//		userRemoteCheck(user, pass, hash);
-//	} else {
+	if(getCookie("user_email") !== "" && getCookie("user_hash") !== "") {
+		var user = document.getElementById("user_email").value = getCookie("user_email");
+		var hash = document.getElementById("user_hash").value = getCookie("user_hash");
+		var pass = "";
+
+		userRemoteCheck(user, pass, hash);
+	} else {
 		var user = prompt("Имейл", "");
 		var pass = prompt("Парола", "");
 		var hash = getCookie("user_hash");
@@ -105,7 +113,7 @@ function selectUser() {
 		}
 
 		userRemoteCheck(user, pass, hash);
-//	}
+	}
 }
 
 function sendVote(direction) {
@@ -123,15 +131,13 @@ function sendVote(direction) {
 		if(this.status != 200) {
 			return;
 		}
-		//TODO Better voting result reporting to be implemented!.
-		//window.alert("Voting was done ..."+this.responseText);
+
 		var flag = this.responseText;
-		if (flag == 1) {
+		if (flag == "1") {
 			document.getElementById("flag").src = "check.png";
 			$(".flag").fadeIn(100);
 			$(".flag").fadeOut(900);
-		} 
-		else{
+		} else if(flag == "0"){
 			document.getElementById("flag").src = "cross.png";
 			$(".flag").fadeIn(100);
 			$(".flag").fadeOut(900);
@@ -142,7 +148,7 @@ function sendVote(direction) {
 	var userHash = document.getElementById("user_hash").value;
 	var userEmail = document.getElementById("user_email").value;
 
-	xhttp.open("GET", "accept_vote.php?ticker="+ticker+"&vote="+direction+"&user_hash=userHash"+"&user_email=userEmail", true);
+	xhttp.open("GET", "accept_vote.php?ticker="+ticker+"&vote="+direction+"&user_hash="+userHash+"&user_email="+userEmail, true);
 	xhttp.send();
 }
 

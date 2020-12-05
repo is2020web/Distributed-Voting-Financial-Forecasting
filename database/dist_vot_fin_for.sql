@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2020 at 02:03 PM
+-- Generation Time: Dec 05, 2020 at 03:25 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -29,7 +29,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `load_currencies` ()  NO SQL
 SELECT ticker, name AS pair FROM currency_pair ORDER BY ticker$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `store_vote` (IN `user_email` VARCHAR(50), IN `user_hash` VARCHAR(100), IN `ticker` VARCHAR(10), IN `vote` VARCHAR(10))  NO SQL
-INSERT INTO `vote` (`direction`, `currency_pair_id`, `user_id`) VALUES (`vote`, (SELECT id FROM currency_pair WHERE currency_pair.ticker=`ticker`) , '1')$$
+INSERT INTO `vote` (`direction`, `currency_pair_id`, `user_id`) VALUES (`vote`, (SELECT id FROM currency_pair WHERE currency_pair.ticker=`ticker`) , (SELECT id FROM user WHERE user.hash = `user_hash` AND user.email = `user_email`))$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `user_check` (IN `email` VARCHAR(50), IN `pass` VARCHAR(50), INOUT `hash` VARCHAR(100))  NO SQL
 procdure_exit:BEGIN
@@ -125,7 +125,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `pass`, `hash`) VALUES
-(13, 'todor.balabanov@gmail.com', '1234', '9262');
+(0, 'null', 'null', ''),
+(13, 'todor.balabanov@gmail.com', '1234', '9262'),
+(18, 'is2020web@abv.bg', '5678', '9263');
 
 -- --------------------------------------------------------
 
@@ -140,6 +142,16 @@ CREATE TABLE `vote` (
   `currency_pair_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `vote`
+--
+
+INSERT INTO `vote` (`id`, `time`, `direction`, `currency_pair_id`, `user_id`) VALUES
+(72, '2020-12-05 14:22:02', 'down', 1, 13),
+(73, '2020-12-05 14:22:53', 'down', 3, 13),
+(74, '2020-12-05 14:24:33', 'down', 8, 13),
+(75, '2020-12-05 14:24:35', 'up', 8, 13);
 
 --
 -- Indexes for dumped tables
@@ -181,13 +193,13 @@ ALTER TABLE `currency_pair`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `vote`
 --
 ALTER TABLE `vote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- Constraints for dumped tables
