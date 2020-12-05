@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2020 at 10:40 AM
+-- Generation Time: Dec 05, 2020 at 10:56 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -39,11 +39,26 @@ DECLARE oldhash VARCHAR(100) DEFAULT 0;
 DECLARE logged INT DEFAULT 0;
 DECLARE registered INT DEFAULT 0;
 DECLARE newcomer INT DEFAULT 0;
+    
+SELECT COUNT(*) INTO newcomer FROM user WHERE user.email=email;
+
+-- If it is a new user make a record into users table.
+IF 0 = newcomer THEN
+	INSERT INTO user (user.email, user.pass, user.hash) VALUES (email, pass, hash);
+	LEAVE procdure_exit;
+END IF;
 
 SELECT COUNT(*) INTO found FROM user WHERE user.email=email AND user.pass=pass AND user.hash=hash;
 
 -- If user is found and its hash matches just return the hash.
 IF 1 = found THEN
+	LEAVE procdure_exit;
+END IF;
+
+SELECT COUNT(*) INTO logged FROM user WHERE user.email=email AND user.hash=hash;
+
+-- If user is found and its hash matches just return the hash.
+IF 1 = logged THEN
 	LEAVE procdure_exit;
 END IF;
 
@@ -55,16 +70,13 @@ IF oldhash <> hash THEN
 	LEAVE procdure_exit;
 END IF;
 
-SELECT COUNT(*) INTO logged FROM user WHERE user.email=email AND user.hash=hash;
-
 SELECT COUNT(*) INTO registered FROM user WHERE user.email=email AND user.pass<>pass AND user.hash<>hash;
 
 -- Stop handling if there is an attacker.
 IF 1 = registered THEN
+	SET hash = 0;
 	LEAVE procdure_exit;
 END IF;
-    
-SELECT COUNT(*) INTO newcomer FROM user WHERE user.email=email;
 
 END$$
 
@@ -113,7 +125,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `pass`, `hash`) VALUES
-(1, 'todor.balabanov@gmail.com', 'asdf', 'asdf');
+(1, 'todor.balabanov@gmail.com', 'asdf', 'asdf'),
+(2, 'is2020web@abv.bg', 'qwer', 'qwer');
 
 -- --------------------------------------------------------
 
@@ -187,7 +200,7 @@ ALTER TABLE `currency_pair`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vote`
