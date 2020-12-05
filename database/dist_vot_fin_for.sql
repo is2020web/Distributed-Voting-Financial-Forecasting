@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2020 at 01:55 PM
+-- Generation Time: Dec 05, 2020 at 02:03 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -42,6 +42,7 @@ DECLARE newcomer INT DEFAULT 0;
     
 SELECT COUNT(*) INTO newcomer FROM user WHERE user.email=email;
 
+-- If it is a new user make a record into users table.
 IF 0 = newcomer THEN
 	INSERT INTO user (user.email, user.pass, user.hash) VALUES (email, pass, hash);
 	LEAVE procdure_exit;
@@ -49,18 +50,21 @@ END IF;
 
 SELECT COUNT(*) INTO found FROM user WHERE user.email=email AND user.pass=pass AND user.hash=hash;
 
+-- If user is found and its hash matches just return the hash.
 IF 1 = found THEN
 	LEAVE procdure_exit;
 END IF;
 
 SELECT COUNT(*) INTO logged FROM user WHERE user.email=email AND user.hash=hash;
 
+-- If user is found and its hash matches just return the hash.
 IF 1 = logged THEN
 	LEAVE procdure_exit;
 END IF;
 
 SELECT user.hash INTO oldhash FROM user WHERE user.email=email AND user.pass=pass;
 
+-- If the user is found but he/she has an old hash value, just take this value and return it.
 IF oldhash <> hash THEN
 	SET hash = oldhash;
 	LEAVE procdure_exit;
@@ -68,6 +72,7 @@ END IF;
 
 SELECT COUNT(*) INTO registered FROM user WHERE user.email=email AND user.pass<>pass AND user.hash<>hash;
 
+-- Stop handling if there is an attacker.
 IF 1 = registered THEN
 	SET hash = 0;
 	LEAVE procdure_exit;
@@ -120,8 +125,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `pass`, `hash`) VALUES
-(13, 'todor.balabanov@gmail.com', '1234', '9262'),
-(14, 'null', 'null', '9262');
+(13, 'todor.balabanov@gmail.com', '1234', '9262');
 
 -- --------------------------------------------------------
 
@@ -152,7 +156,8 @@ ALTER TABLE `currency_pair`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `vote`

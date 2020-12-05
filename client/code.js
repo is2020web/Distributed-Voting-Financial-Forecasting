@@ -84,7 +84,6 @@ function userRemoteCheck(user, pass, hash) {
 		//setCookie("user_hash", ""+(1000 + Math.floor(Math.random() * 9000)), 100);
 		//TODO selectUser();
 	}
-console.log("user_check.php?user="+user+"&pass="+pass+"&hash="+hash+"");
 	
 	xhttp.open("GET", "user_check.php?user="+user+"&pass="+pass+"&hash="+hash+"", true);
 	xhttp.send();
