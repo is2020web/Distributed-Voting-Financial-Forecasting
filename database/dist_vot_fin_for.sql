@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 03:40 PM
+-- Generation Time: Dec 05, 2020 at 09:40 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -32,24 +32,28 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `store_vote` (IN `user_email` VARCHA
 INSERT INTO `vote` (`direction`, `currency_pair_id`, `user_id`) VALUES (`vote`, (SELECT id FROM currency_pair WHERE currency_pair.ticker=`ticker`) , '1')$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `user_check` (IN `email` VARCHAR(50), IN `pass` VARCHAR(50), INOUT `hash` VARCHAR(100))  NO SQL
-BEGIN
+procdure_exit:BEGIN
 
+DECLARE found INT DEFAULT 0;
+DECLARE oldhash INT DEFAULT 0;
+DECLARE logged INT DEFAULT 0;
 DECLARE registered INT DEFAULT 0;
+DECLARE newcomer INT DEFAULT 0;
 
-SELECT COUNT(*) INTO @found FROM user WHERE user.email=email AND user.pass=pass AND user.hash=hash;
+SELECT COUNT(*) INTO found FROM user WHERE user.email=email AND user.pass=pass AND user.hash=hash;
 
-SELECT user.hash INTO @oldhash FROM user WHERE user.email=email AND user.pass=pass;
+SELECT user.hash INTO oldhash FROM user WHERE user.email=email AND user.pass=pass;
 
-SELECT COUNT(*) INTO @logged FROM user WHERE user.email=email AND user.hash=hash;
+SELECT COUNT(*) INTO logged FROM user WHERE user.email=email AND user.hash=hash;
 
 SELECT COUNT(*) INTO registered FROM user WHERE user.email=email AND user.pass<>pass AND user.hash<>hash;
 
--- TODO Stop handling if there is an attacker.
--- IF 1 = registered THEN
--- 	RETURN;
--- END IF;
+-- Stop handling if there is an attacker.
+IF 1 = registered THEN
+	LEAVE procdure_exit;
+END IF;
     
-SELECT COUNT(*) INTO @newcomer FROM user WHERE user.email=email;
+SELECT COUNT(*) INTO newcomer FROM user WHERE user.email=email;
 
 END$$
 
@@ -77,7 +81,8 @@ INSERT INTO `currency_pair` (`id`, `ticker`, `name`) VALUES
 (4, 'USDJPY', 'USD/JPY'),
 (5, 'CHFUSD', 'CHF/USD'),
 (6, 'NZDUSD', 'NZD/USD'),
-(7, 'USDCND', 'USD/CND');
+(7, 'USDCAD', 'USD/CAD'),
+(8, 'CADCHF', 'CAD/CHF');
 
 -- --------------------------------------------------------
 
@@ -163,7 +168,7 @@ ALTER TABLE `vote`
 -- AUTO_INCREMENT for table `currency_pair`
 --
 ALTER TABLE `currency_pair`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`

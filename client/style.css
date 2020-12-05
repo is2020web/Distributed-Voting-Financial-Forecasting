@@ -1,5 +1,5 @@
 body {
-  	background: url("bearish_bullish.png");
+	background: url("bearish_bullish.png");
 	background-position: top center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -9,7 +9,7 @@ body {
 h1 {
 	color: white;
 	text-align: center;
-	font-size:2.6vw;
+	font-size: 2.6vw;
 	font-family: Arial, Helvetica, sans-serif;
 	text-shadow: 2px 2px 12px #000000;
 	margin-top: 50px;
@@ -33,7 +33,7 @@ select {
 }
 
 #vote_down {
-	display:inline-block;
+	display: inline-block;
 	background-color: #32B7BE;
 	padding: 40px;
 	border: 2px solid white;
@@ -46,12 +46,12 @@ select {
 	margin-right: 0px;
 	margin-left: 50px;
 	margin-bottom: 13px;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	float: left;
 }
 
 #vote_up {
-	display:inline-block;
+	display: inline-block;
 	background-color: #BBEBEC;
 	padding: 40px;
 	border: 2px solid white;
@@ -64,7 +64,7 @@ select {
 	margin-right: 50px;
 	margin-left: 0px;
 	margin-bottom: 13px;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	float: right;
 }
 
@@ -99,14 +99,15 @@ div.voting_form {
 	border-radius: 25px;
 	background: #006988;
 	border: 3px solid white;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .scroll-left {
-	height: 50px; 
+	height: 50px;
 	overflow: hidden;
 	position: relative;
 }
+
 .scroll-left p {
 	position: absolute;
 	white-space: nowrap;
@@ -119,41 +120,54 @@ div.voting_form {
 	text-align: center;
 	text-shadow: 3px 3px 12px #000000;
 	text-align: center;
-	-moz-transform:translateX(100%);
-	-webkit-transform:translateX(100%); 
-	transform:translateX(100%);
+	-moz-transform: translateX(100%);
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
 	-moz-animation: scroll-left 10s linear infinite;
 	-webkit-animation: scroll-left 10s linear infinite;
 	animation: scroll-left 25s linear infinite;
 }
+
 @-moz-keyframes scroll-left {
-	0% { -moz-transform: translateX(100%); }
-	100% { -moz-transform: translateX(-100%); }
+	0% {
+		-moz-transform: translateX(100%);
+	}
+	100% {
+		-moz-transform: translateX(-100%);
+	}
 }
+
 @-webkit-keyframes scroll-left {
-	0% { -webkit-transform: translateX(100%); }
-	100% { -webkit-transform: translateX(-100%); }
+	0% {
+		-webkit-transform: translateX(100%);
+	}
+	100% {
+		-webkit-transform: translateX(-100%);
+	}
 }
+
 @keyframes scroll-left {
-	0% { 
+	0% {
 		-moz-transform: translateX(100%);
 		-webkit-transform: translateX(100%);
-		transform: translateX(100%); 
+		transform: translateX(100%);
 	}
-	100% { 
+	100% {
 		-moz-transform: translateX(-100%);
 		-webkit-transform: translateX(-100%);
-		transform: translateX(-100%); 
+		transform: translateX(-100%);
 	}
 }
+
 .flag {
-	display:inline-block;
+	display: inline-block;
 	margin-top: 12px;
 	margin-left: 20px;
 	width: 12%;
 }
-div.exchange_date{
-	display:inline-block;
+
+div.exchange_date {
+	display: inline-block;
 	white-space: nowrap;
 	width: 100%;
 }
