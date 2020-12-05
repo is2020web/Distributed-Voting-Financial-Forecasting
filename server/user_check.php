@@ -31,10 +31,14 @@ if ($conn->connect_error) {
 }
 
 //TODO Use prepared statments!
-$result = $conn->query( "CALL user_check('".$_GET['email']."','".$_GET['pass']."','".$_GET['hash']."');" );
+$conn->multi_query( "SET @hash=".$_GET['hash']."; CALL user_check('".$_GET['user']."','".$_GET['pass']."', @hash); SELECT @hash;" );
+$conn->next_result();
+$conn->next_result();
+$result = $conn->store_result(); 
+
+echo( json_encode( $result->fetch_assoc()["@hash"] ) );
+$result->free();
 
 $conn->close();
-
-//TODO Return response!
 
 ?>
