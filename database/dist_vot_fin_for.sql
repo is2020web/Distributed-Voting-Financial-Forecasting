@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2020 at 09:40 AM
+-- Generation Time: Dec 05, 2020 at 10:40 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -35,14 +35,25 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `user_check` (IN `email` VARCHAR(50)
 procdure_exit:BEGIN
 
 DECLARE found INT DEFAULT 0;
-DECLARE oldhash INT DEFAULT 0;
+DECLARE oldhash VARCHAR(100) DEFAULT 0;
 DECLARE logged INT DEFAULT 0;
 DECLARE registered INT DEFAULT 0;
 DECLARE newcomer INT DEFAULT 0;
 
 SELECT COUNT(*) INTO found FROM user WHERE user.email=email AND user.pass=pass AND user.hash=hash;
 
+-- If user is found and its hash matches just return the hash.
+IF 1 = found THEN
+	LEAVE procdure_exit;
+END IF;
+
 SELECT user.hash INTO oldhash FROM user WHERE user.email=email AND user.pass=pass;
+
+-- If the user is found but he/she has an old hash value, just take this value and return it.
+IF oldhash <> hash THEN
+	SET hash = oldhash;
+	LEAVE procdure_exit;
+END IF;
 
 SELECT COUNT(*) INTO logged FROM user WHERE user.email=email AND user.hash=hash;
 
@@ -133,7 +144,9 @@ INSERT INTO `vote` (`id`, `time`, `direction`, `currency_pair_id`, `user_id`) VA
 (48, '2020-11-28 12:27:12', 'down', 1, 1),
 (49, '2020-11-28 12:27:45', 'down', 5, 1),
 (50, '2020-11-28 12:30:35', 'up', 5, 1),
-(51, '2020-11-28 12:30:39', 'down', 3, 1);
+(51, '2020-11-28 12:30:39', 'down', 3, 1),
+(52, '2020-12-05 09:40:25', 'up', 8, 1),
+(53, '2020-12-05 09:40:27', 'down', 8, 1);
 
 --
 -- Indexes for dumped tables
@@ -180,7 +193,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `vote`
 --
 ALTER TABLE `vote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- Constraints for dumped tables
